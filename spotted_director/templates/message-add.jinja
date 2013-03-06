@@ -1,0 +1,27 @@
+{% extends "base.jinja" %}
+
+{%  block content %}
+    <h1>Add message</h1>
+
+    <form action="{{ url_for('server_action', server_name=name) }}" method="POST">
+        <input type="hidden" name="action" value="add">
+
+        <label for="edit-message">Message</label>
+        <textarea id="edit-message" name="message" class="input-xxlarge"></textarea>
+
+        <label for="edit-color">Color</label>
+        <input type="color" name="color" id="edit-color" value="#ffffff">
+
+        <label class="checkbox">
+            <input type="checkbox" name="color-randomize">
+            Pick random color
+        </label>
+
+        <div class="control-group">
+            <button type="submit" class="btn btn-primary">Add message</button>
+            <a href="{{ url_for('server_dashboard', server_name=name) }}" class="btn">Cancel</a>
+        </div>
+
+    </form>
+
+{% endblock %}

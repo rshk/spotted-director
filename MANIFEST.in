@@ -1,0 +1,2 @@
+recursive-include spotted_director/static *.css *.js *.png
+recursive-include spotted_director/templates *.jinja
