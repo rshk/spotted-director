@@ -1,8 +1,29 @@
 {% extends "base.jinja" %}
 
-{%  block content %}
-    <h1>Dashboard</h1>
+{% block extra_head %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/application.js') }}"></script>
+{% endblock %}
 
-    <a href="{{ url_for('server_list') }}" class="btn btn-primary btn-large">Show servers</a>
+{%  block content %}
+{#    <h1>Dashboard</h1>#}
+{#    <a href="{{ url_for('server_list') }}" class="btn btn-primary btn-large">Show servers</a>#}
+
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a href="#">Home</a>
+        </li>
+        <li>
+            <a href="#help">Help</a>
+        </li>
+        <li>
+            <a href="#search/something">Search</a>
+        </li>
+
+        {#<li>
+            <a href="{{ url_for('server_dashboard', server_name=name) }}">Manage queue</a>
+        </li>#}
+    </ul>
+
+    <div id="application-container"></div>
 
 {% endblock %}

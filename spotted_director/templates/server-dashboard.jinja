@@ -3,7 +3,21 @@
 {% block content %}
     <h1>Server: {{ name }}</h1>
 
-    <div><strong>Host:</strong> {{ host }}</div>
+    <div class="well">
+        <strong>Connection URL:</strong> {{ host }}
+    </div>
+
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a href="{{ url_for('server_dashboard', server_name=name) }}">Home</a>
+        </li>
+        <li>
+            <a href="{{ url_for('server_add_message', server_name=name) }}">Add message</a>
+        </li>
+        <li>
+            <a href="{{ url_for('server_dashboard', server_name=name) }}">Manage queue</a>
+        </li>
+    </ul>
 
     <a href="{{ url_for('server_add_message', server_name=name) }}" class="btn btn-success">
         Add message

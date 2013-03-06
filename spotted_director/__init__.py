@@ -14,7 +14,8 @@ def get_server_connection(server_name):
 
 
 @app.route('/')
-def dashboard():
+@app.route('/<path:path>')
+def dashboard(path=None):
     return render_template('index.jinja')
 
 
@@ -64,3 +65,94 @@ def server_action(server_name):
             raise ValueError("Unknown action %s" % action)
 
     return redirect(url_for('server_dashboard', server_name=server_name))
+
+
+
+## ===== API views =============================================================
+## Objects: server, screen_message(server), queue_message
+## URLs:
+
+##      GET /server/
+##          List servers
+@app.route('/api/server', methods=['GET'])
+def api_get_server():
+    pass
+
+##      POST /server/
+##          Add a server connection
+@app.route('/api/server', methods=['POST'])
+def api_post_server():
+    pass
+
+##      GET /server/<id>
+##          Get info on a server connection
+@app.route('/api/server/<server_id>', methods=['GET'])
+def api_get_server_id(server_id):
+    pass
+
+##      PUT /server/<id>
+@app.route('/api/server/<server_id>', methods=['PUT'])
+def api_put_server_id(server_id):
+    pass
+
+##      DELETE /server/<id>
+##          Delete a server connection
+@app.route('/api/server/<server_id>', methods=['DELETE'])
+def api_delete_server_id(server_id):
+    pass
+
+##      GET /server/<id>/message
+##          List messages on a screen
+@app.route('/api/server/<server_id>/message', methods=['GET'])
+def api_get_server_id_message(server_id):
+    pass
+
+##      POST /server/<id>/message
+##          Add a message to a screen
+@app.route('/api/server/<server_id>/message', methods=['POST'])
+def api_post_server_id_message(server_id):
+    pass
+
+##      GET /server/<id>/message/<id>
+##          Get a specific message from a screen
+@app.route('/api/server/<server_id>/message/<message_id>', methods=['GET'])
+def api_get_server_id_message_id(server_id, message_id):
+    pass
+
+##      PUT /server/<id>/message/<id>
+@app.route('/api/server/<server_id>/message/<message_id>', methods=['PUT'])
+def api_put_server_id_message_id(server_id, message_id):
+    pass
+
+##      DELETE /server/<id>/message/<id>
+@app.route('/api/server/<server_id>/message/<message_id>', methods=['DELETE'])
+def api_delete_server_id_message_id(server_id, message_id):
+    pass
+
+##      GET /queue
+@app.route('/api/queue', methods=['GET'])
+def api_get_queue():
+    pass
+
+##      POST /queue
+##          Add something to the queue (useful?)
+@app.route('/api/queue', methods=['POST'])
+def api_post_queue():
+    pass
+
+##      GET /queue/<id>
+@app.route('/api/queue/<queue_id>', methods=['GET'])
+def api_get_queue_id(queue_id):
+    pass
+
+##      PUT /queue/<id>
+##          Perform an action on a queue item (including approval)
+@app.route('/api/queue/<queue_id>', methods=['PUT'])
+def api_put_queue_id(queue_id):
+    pass
+
+##      DELETE /queue/<id>
+##          Delete an item from the queue
+@app.route('/api/queue/<queue_id>', methods=['DELETE'])
+def api_delete_queue_id(queue_id):
+    pass
