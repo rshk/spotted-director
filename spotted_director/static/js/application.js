@@ -75,21 +75,28 @@ $(function(){
         Backbone.history.start({pushState: true});
     };
 
-    Application.prototype.navigate = function(destination) {
-        this.router.navigate(destination, {"trigger": true});
-        // Update the active class for links..
-        $('.nav > li > a').each(function(){
-            var $this = $(this),
-                $parent = $($this.parent());
-            if ($this.attr('href') == '#' + destination) {
-                $parent.addClass('active');
-            }
-            else {
-                $parent.removeClass('active');
-            }
-        });
+
+    Application.prototype = {
+        navigate: function(destination) {
+            this.router.navigate(destination, {"trigger": true});
+            this.updateActiveLinks();
+        },
+        updateActiveLinks: function() {
+            var frag = Backbone.history.fragment;
+            $('.nav > li > a').each(function(){
+                var $this = $(this),
+                    $parent = $($this.parent());
+                if ($this.attr('href') == '#' + frag) {
+                    $parent.addClass('active');
+                }
+                else {
+                    $parent.removeClass('active');
+                }
+            });
+        }
     };
 
     window.app = new Application();
+    app.updateActiveLinks();
 
 });
