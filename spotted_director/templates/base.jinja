@@ -3,9 +3,11 @@
     <head>
         <title>Spotted Wall</title>
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/bootstrap/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
         <script type="text/javascript" src="{{ url_for('static', filename='lib/jquery/jquery.min.js') }}"></script>
         <script type="text/javascript" src="{{ url_for('static', filename='lib/underscore/underscore.min.js') }}"></script>
         <script type="text/javascript" src="{{ url_for('static', filename='lib/backbone/backbone.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='lib/handlebars/handlebars.min.js') }}"></script>
         {% block extra_head %}{% endblock %}
     </head>
     <body>

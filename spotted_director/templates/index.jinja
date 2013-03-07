@@ -5,25 +5,149 @@
 {% endblock %}
 
 {%  block content %}
-{#    <h1>Dashboard</h1>#}
-{#    <a href="{{ url_for('server_list') }}" class="btn btn-primary btn-large">Show servers</a>#}
-
-    <ul class="nav nav-tabs">
-        <li class="active">
-            <a href="#">Home</a>
-        </li>
-        <li>
-            <a href="#help">Help</a>
-        </li>
-        <li>
-            <a href="#search/something">Search</a>
-        </li>
-
-        {#<li>
-            <a href="{{ url_for('server_dashboard', server_name=name) }}">Manage queue</a>
-        </li>#}
-    </ul>
 
     <div id="application-container"></div>
+
+    {% raw %}
+    <script id="template-server-list" type="text/x-handlebars-template">
+        <h1>Servers</h1>
+
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Url</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {{#each servers}}
+                <tr>
+                    <td>
+                        <a href="#server/{{ id }}">{{ id }}</a>
+                    </td>
+                    <td>{{url}}</td>
+                    <td>---</td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </script>
+
+    <script id="template-server-page-header" type="text/x-handlebars-template">
+        <ul class="breadcrumb">
+            <li><a href="#">Servers</a> <span class="divider">/</span></li>
+            <li class="active">{{ server.id }}</li>
+        </ul>
+
+        <h1>Server <small>{{ server.id }}</small></h1>
+
+        <div class="well">
+            <strong>URL:</strong> {{ server.url }}
+        </div>
+
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="#server/{{ server.id }}">Home</a>
+            </li>
+            <li>
+                <a href="#server/{{ server.id }}/messages">Messages</a>
+            </li>
+            <li>
+                <a href="#server/{{ server.id }}/queue">Queue</a>
+            </li>
+            <li>
+                <a href="#server/{{ server.id }}/archive">Archive</a>
+            </li>
+        </ul>
+
+    </script>
+
+    <script id="template-server-dashboard" type="text/x-handlebars-template">
+        {{#if info.error}}
+        <div class="alert alert-error">
+            {{ info.error }}
+        </div>
+        {{/if}}
+        <table class="table table-striped table-bordered table-keyval">
+            <tbody>
+            <tr>
+                <th>Label:</th>
+                <td>{{ server.id }}</td>
+            </tr>
+            <tr>
+                <th>Url:</th>
+                <td>{{ server.url }}</td>
+            </tr>
+            {{#unless info.error}}
+            <tr>
+                <th>Version:</th>
+                <td>{{ info.version }}</td>
+            </tr>
+            {{/unless}}
+            </tbody>
+        </table>
+    </script>
+
+    <script id="template-server-messages" type="text/x-handlebars-template">
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Text</th>
+                    <th>Color</th>
+                    <th>Shown at</th>
+                    <th>Show time</th>
+                    <th>Max show time</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each messages}}
+                <tr class="{{#if shown_time}}success{{/if}}">
+                    <td>{{ id }}</td>
+                    <td style="background:#000;color:{{ html_color }};font-weight:bold;">
+                        {{ text }}
+                    </td>
+                    <td>
+                        <span style="background:{{ html_color }};" class="color-icon"></span>
+                        {{ color }}
+                    </td>
+                    <td><span title="{{ shown_at }}">{{ shown_at_time }}</span></td>
+                    <td>{{ shown_time }}</td>
+                    <td>{{ max_show_time }}</td>
+                    <td>---</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </script>
+
+    <script id="template-server-queue" type="text/x-handlebars-template">
+        QUEUE for {{ server.id }} will go here.
+    </script>
+
+    <script id="template-server-archive" type="text/x-handlebars-template">
+        ARCHIVE for {{ server.id }} will go here.
+    </script>
+
+    <script id="template-not-found" type="text/x-handlebars-template">
+        <h1>Page not found</h1>
+        <p>
+            Unable to find the page with path: <code>{{ path }}</code>.
+        </p>
+        <p>
+            <a href="#">Return to home.</a>
+        </p>
+    </script>
+
+    <script id="template-error-message" type="text/x-handlebars-template">
+        {{#if title}}<h1>{{ title }}</h1>{{/if}}
+        <div class="alert alert-error">
+            {{ message }}
+        </div>
+    </script>
+
+    {% endraw %}
 
 {% endblock %}

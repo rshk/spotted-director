@@ -1,0 +1,15 @@
+.table-keyval {
+    width: auto;
+    min-width: 300px;
+}
+.table-keyval > tbody > tr > th {
+    width: 25%;
+}
+.table-keyval > tbody > tr > td {
+    width: 75%;
+}
+.color-icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+}
